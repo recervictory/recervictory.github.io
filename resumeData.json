@@ -1,0 +1,128 @@
+{
+    "main": {
+        "name": "Victor Banerjee",
+        "description": "I'm a computational biologist. Currently working in Genome India Project at Center of Cellular and Molecular Biology (CCMB Hydrabad)",
+        "image": "profilepic.jfif",
+        "bio": "Science has always been an integral part of my life. I am always wanted to contribute to society through science. That why I always wanted to know and connect the interdisciplinary paradigm of Science. Although I started my journey biology background soon after completing my post graduation I become interested in System Biology, Bioinformatics and Computer Science.",
+        "contactmessage": "Here is where you should write your message to readers to have them get in contact with you.",
+        "email": "www.recervictory@gmail.com",
+        "phone": "mail me",
+        "github": "https://github.com/recervictory",
+        "project": "https://github.com/",
+        "address": {
+            "street": "CSIR-CCMB",
+            "city": "Hydrabad",
+            "state": "Telangana"
+        },
+        "website": "https://github.com/",
+        "resumedownload": "https://github.com/",
+        "social": [
+            {
+                "name": "facebook",
+                "url": "https://github.com/",
+                "className": "fa fa-facebook"
+            },
+            {
+                "name": "twitter",
+                "url": "http://twitter.com",
+                "className": "fa fa-twitter"
+            },
+            {
+                "name": "linkedin",
+                "url": "https://www.linkedin.com/in/victorbanerjee/",
+                "className": "fa fa-linkedin"
+            },
+            {
+                "name": "instagram",
+                "url": "http://instagram.com/",
+                "className": "fa fa-instagram"
+            },
+            {
+                "name": "github",
+                "url": "https://github.com/recervictory",
+                "className": "fa fa-github"
+            }
+        ]
+    },
+    "resume": {
+        "skillmessage": "Following are the popular skill I have acquired through the various parts of my experience",
+        "education": [
+            {
+                "school": "St. Xavier's College, Kolkata",
+                "degree": "Masters in Microbiology",
+                "graduated": "June 2013",
+                "description": "Completed the Post graduation in Microbiology"
+            },
+            {
+                "school": "Indira Gandhi National Open University",
+                "degree": "Master in Computer Application",
+                "graduated": "June 2022",
+                "description": "I learn everything about computer by myself."
+            }
+        ],
+        "work": [
+            {
+                "company": "CSIR - Center of Cellular and Molecular Biology,Bhubaneshwar",
+                "title": "Project Associate",
+                "years": "October 2021 - Present",
+                "description": "Working as a Project associate in the prestigious Genome India Project. I am currently developing database for different patterns within the genomes. Understanding the relationship of various disease model in Indian Populations."
+            },
+            {
+                "company": "National Institute of Science Education and Research",
+                "title": "Junior Research Fellow (Drop Out)",
+                "years": "March 2014 - June 2019",
+                "description": "Work as a Research Fellow to understand the host-pathogen interaction between Drosophila melanogaster and Pseudomonas aeruginosa. The goal of the project to establish an infection model for Drosophila and pathogen and understand the resistance of bacteria in the presence of agent Triclosan."
+            }
+        ],
+        "skills": [
+            {
+                "name": "Python",
+                "level": "80%"
+            },
+            {
+                "name": "Genomics",
+                "level": "75%"
+            },
+            {
+                "name": "Data Science",
+                "level": "70%"
+            },
+            {
+                "name": "Machine Learning",
+                "level": "70%"
+            },
+            {
+                "name": "Data Structure and Algorithms",
+                "level": "60%"
+            }
+        ]
+    },
+    "portfolio": {
+        "projects": [
+            {
+                "title": "Genome India Project",
+                "category": "BioInformatics, Genomics, Data Science, DataBase",
+                "image": "genome-india.jpg",
+                "url": "https://www.google.com"
+            },
+            {
+                "title": "Genomics Data Science",
+                "category": "BioInformatics, Genomics, Data Science, DataBase",
+                "image": "genome.jpg",
+                "url": "https://www.google.com"
+            },
+            {
+                "title": "Rosalind",
+                "category": "Algorithms, Data Structures and BioInformatics",
+                "image": "rosalind.jpg",
+                "url": "https://www.google.com"
+            },
+            {
+                "title": "ML/AI & Data Science",
+                "category": "AI, Machine Learning and Deep Learning",
+                "image": "ml.png",
+                "url": "https://www.google.com"
+            }
+        ]
+    }
+}

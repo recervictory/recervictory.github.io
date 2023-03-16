@@ -7,7 +7,24 @@ import ParticlesBg from "particles-bg";
  * If you want to change the type of animation, check this documentation alll types availables: https://github.com/lindelof/particles-bg
  */
 
+function generateLightColorHex() {
+    // Generate random RGB values in the range [128, 255] for a light color
+    const red = Math.floor(Math.random() * 128) + 128;
+    const green = Math.floor(Math.random() * 128) + 128;
+    const blue = Math.floor(Math.random() * 128) + 128;
+
+    // Convert the RGB values to hex format
+    const hexRed = red.toString(16).padStart(2, "0");
+    const hexGreen = green.toString(16).padStart(2, "0");
+    const hexBlue = blue.toString(16).padStart(2, "0");
+
+    // Combine the hex values and return the result
+    return `#${hexRed}${hexGreen}${hexBlue}`;
+}
+
 export default function Header(props) {
+    const color = generateLightColorHex()
+
     if (props.data) {
         var project = props.data.project;
         var github = props.data.github;
@@ -27,7 +44,11 @@ export default function Header(props) {
 
     return (
         <header id="home">
-            <ParticlesBg type="tadpole" bg={true} />
+            <ParticlesBg
+                type="cobweb"
+                bg={true}
+                color={color}
+            />
             <nav id="nav-wrap">
                 <a
                     className="mobile-btn"
@@ -39,7 +60,6 @@ export default function Header(props) {
                 <a className="mobile-btn" href="#home" title="Hide navigation">
                     Hide navigation
                 </a>
-
                 <ul id="nav" className="nav">
                     <li className="current">
                         <a className="smoothscroll" href="#home">
@@ -66,7 +86,7 @@ export default function Header(props) {
             <div className="row banner">
                 <div className="banner-text">
                     <h1 className="responsive-headline">{name}</h1>
-                    <h3>{description}.</h3>
+                    <h3  style={{ color: color}} >{description}.</h3>
                 </div>
             </div>
             <p className="scrolldown">

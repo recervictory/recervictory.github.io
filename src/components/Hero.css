@@ -2,9 +2,9 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  background: var(--color-bg-primary);
+  background: linear-gradient(180deg, #0a1f12 0%, #050d08 100%);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -15,105 +15,133 @@
   pointer-events: none;
 }
 
-.hero-layer--umap {
+/* Layer 1 — Gradient background */
+.hero-bg-gradient {
+  position: absolute;
+  top: -60%;
+  left: 0;
+  right: 0;
+  bottom: -60%;
+  background: linear-gradient(180deg, #0a1f12 0%, #050d08 100%);
+}
+
+.hero-bg-gradient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 85%, rgba(255, 209, 102, 0.08), transparent 60%);
+}
+
+/* Layer 2 — Brain outline */
+.hero-layer--brain-outline {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.hero-layer--leaves {
-  display: flex;
-  align-items: stretch;
-}
-
-.hero-leaf--left {
+/* Layer 3 — Neuron forest */
+.hero-forest-neuron {
   position: absolute;
-  left: -60px;
-  top: -30px;
 }
 
-.hero-leaf--right {
-  position: absolute;
-  right: -40px;
-  top: -20px;
-}
-
-.hero-leaf--br {
-  position: absolute;
-  right: 80px;
-  bottom: -60px;
-}
-
-.hero-layer--neurons {
-  display: flex;
-}
-
-.hero-neuron--left {
-  position: absolute;
-  left: 60px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.hero-neuron--right {
-  position: absolute;
-  right: 60px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* ── Particles ───────────────────────────────────────────── */
+/* Layer 4 — Particles */
 .hero-layer--particles {
   pointer-events: none;
 }
 
-.hero-particle {
+.hero-synapse-particle {
   position: absolute;
   border-radius: 50%;
-  background: var(--color-leaf-light);
-  opacity: 0.4;
-  animation: cellFloat linear infinite;
+  animation: cellFloatUp linear infinite;
+}
+
+/* ── Centerpiece ─────────────────────────────────────────── */
+.hero-centerpiece {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+  z-index: 5;
+  animation: hero-pulse 6s ease-in-out infinite;
+}
+
+.hero-centerpiece__astrocyte,
+.hero-centerpiece__pyramidal,
+.hero-centerpiece__glia,
+.hero-centerpiece__microglia {
+  position: absolute;
+}
+
+.hero-centerpiece__astrocyte {
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-55%);
+}
+
+.hero-centerpiece__pyramidal {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-40%);
+}
+
+.hero-centerpiece__glia {
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-70%);
+}
+
+.hero-centerpiece__microglia {
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-20%);
 }
 
 /* ── Text Content ────────────────────────────────────────── */
 .hero-layer--text {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  z-index: 10;
+  z-index: 100;
   pointer-events: auto;
+  width: 100%;
+  align-self: flex-start;
 }
 
 .hero-content {
   text-align: center;
-  padding: 80px 20px 40px;
+  padding: 40px 20px 20px;
   position: relative;
-  z-index: 10;
+  z-index: 100;
 }
 
-.hero-tagline {
+#home .hero-tagline {
   font-family: var(--font-code);
-  font-size: 11px;
-  letter-spacing: 4px;
+  font-size: 10px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-data-cyan);
   margin-bottom: 20px;
+  text-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
   opacity: 0;
-  animation: fadeInUp 1s ease 0.2s forwards;
+  animation: fadeInUp 1.2s ease 0.2s forwards;
 }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 700;
   color: var(--color-synapse-gold);
   letter-spacing: -1px;
-  text-shadow: 0 0 60px rgba(255,209,102,0.35);
+  text-shadow: 0 0 30px rgba(255, 209, 102, 0.25);
   margin-bottom: 24px;
   line-height: 1.1;
   opacity: 0;
-  animation: fadeInUp 1s ease 0.4s forwards;
+  animation: fadeInUp 1.2s ease 0.5s forwards;
+  z-index: 100;
 }
 
 .hero-subtitle {
@@ -121,44 +149,61 @@
   font-style: italic;
   font-size: clamp(1rem, 2.5vw, 1.35rem);
   color: var(--color-text-primary);
-  max-width: 640px;
+  max-width: 500px;
   margin: 0 auto 40px;
-  line-height: 1.6;
+  line-height: 1.7;
   opacity: 0;
-  animation: fadeInUp 1s ease 0.6s forwards;
+  animation: fadeInUp 1.2s ease 0.8s forwards;
+  z-index: 100;
 }
 
 .hero-scroll-down {
   display: inline-block;
   color: var(--color-leaf-mid);
-  font-size: 32px;
+  font-size: 24px;
   text-decoration: none;
   animation: bounce 2s infinite;
   position: absolute;
-  bottom: -120px;
+  bottom: -160px;
   left: 50%;
+  z-index: 100;
 }
 
 .hero-chevron {
   display: block;
 }
 
+/* ── Keyframe Animations ─────────────────────────────────── */
+@keyframes hero-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.45; }
+}
+
+@keyframes cellFloatUp {
+  0%   { transform: translateY(0) scale(1);     opacity: 0.5; }
+  50%  {                                         opacity: 0.8; }
+  100% { transform: translateY(-40px) scale(1.1); opacity: 0.3; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
 /* ── Mobile ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero-leaf--left,
-  .hero-leaf--right,
-  .hero-leaf--br,
-  .hero-neuron--left,
-  .hero-neuron--right,
-  .hero-layer--umap {
-    opacity: 0;
+  .hero-centerpiece {
+    opacity: 0.2;
+    width: 300px;
+    height: 300px;
+    bottom: -40px;
   }
 
   .hero-name {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .hero-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }

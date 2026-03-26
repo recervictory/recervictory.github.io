@@ -1,53 +1,46 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, CardActionArea, CardMedia, Typography, Grid, Container } from '@material-ui/core/';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        backgroundColor: theme.palette.primary.light,
-    },
-    card: {
-        maxWidth: 250,
-        margin: 0,
-    },
-    media: {
-        height: 160,
-    },
-}));
-
 
 export default function Portfolio(props) {
-    const classes = useStyles();
+    let projects = null;
 
     if (props.data) {
-        var projects = props.data.projects.map(function (projects) {
-            var projectImage = 'images/portfolio/' + projects.image;
+        projects = props.data.projects.map(function (project) {
+            const projectImage = 'images/portfolio/' + project.image;
 
             return (
-                <div key={projects.title} className="columns portfolio-item">
-                <Card className={classes.card}>
-                    <CardActionArea href={projects.url}>
-                        <CardMedia className={classes.media} image={projectImage} title={projects.title} />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">{projects.title}</Typography>
-                            <Typography variant="body2" gutterBottom>{projects.category}</Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                </div>
-            )
-        })
+                <article key={project.title} className="manuscript-card reveal">
+                    <div className="card-image">
+                        <img src={projectImage} alt={project.title} />
+                    </div>
+                    <div className="card-body">
+                        <h3 className="card-title">{project.title}</h3>
+                        <p className="card-category">{project.category}</p>
+                        <a
+                            href={project.url}
+                            className="card-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Project →
+                        </a>
+                    </div>
+                </article>
+            );
+        });
     }
 
     return (
-        <section className={classes.root} id="portfolio">
-            <Container className="row">
-            <h1>Check Out Some of My Works.</h1>
-            <div id="portfolio-wrapper" className="bgrid-quarters s-bgrid-thirds cf">
-                        {projects}
-                    </div>
-            </Container>
+        <section id="portfolio">
+            <div className="portfolio-inner">
+                <span className="section-chapter">Los Cuentos · The Stories</span>
+                <h2 className="section-title">Projects</h2>
+                <p className="section-subtitle">
+                    Each project a manuscript — data encoded, stories decoded.
+                </p>
+                <div id="portfolio-wrapper">
+                    {projects}
+                </div>
+            </div>
         </section>
     );
 }

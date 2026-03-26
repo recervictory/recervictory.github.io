@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 import $ from 'jquery';
+import './styles/theme.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import About from './components/About';
@@ -28,13 +29,47 @@ class App extends Component {
             }.bind(this),
             error: function (xhr, status, err) {
                 console.log(err);
-                alert(err);
             }
         });
     }
 
+    /** Attach Intersection Observer to drive .reveal animations */
+    initScrollReveal() {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            },
+            { threshold: 0.12 }
+        );
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // Re-observe on data load (elements may appear after AJAX)
+        this._scrollObserver = observer;
+    }
+
     componentDidMount() {
         this.getResumeData();
+        this.initScrollReveal();
+    }
+
+    componentDidUpdate() {
+        // Re-scan for newly mounted .reveal elements after data loads
+        if (this._scrollObserver) {
+            document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
+                this._scrollObserver.observe(el);
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this._scrollObserver) {
+            this._scrollObserver.disconnect();
+        }
     }
 
     render() {
@@ -51,3 +86,4 @@ class App extends Component {
 }
 
 export default App;
+

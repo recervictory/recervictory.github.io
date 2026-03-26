@@ -1,0 +1,67 @@
+/* ============================================================
+   Global Keyframe Animations — Botanical Neuro-Atlas
+   ============================================================ */
+
+/* Element drifts up 20px and back */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-20px); }
+}
+
+/* Fade in from below */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Random floating drift for cell particles */
+@keyframes cellFloat {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(15px, -20px); }
+  50%  { transform: translate(-10px, -10px); }
+  75%  { transform: translate(-15px, 15px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Glow pulse for skill rings and accents */
+@keyframes glowPulse {
+  0%, 100% { filter: brightness(1); }
+  50%       { filter: brightness(1.4); }
+}
+
+/* UMAP dot settle-in on mount */
+@keyframes dotSettle {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* SVG stroke-dashoffset reveal for timeline stem */
+@keyframes stemDraw {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Bounce for scroll indicator */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50%       { transform: translateY(8px) translateX(-50%); }
+}
+
+/* Firefly drift */
+@keyframes firefly-drift {
+  0%   { transform: translate(0, 0)       scale(1);   opacity: 0.6; }
+  50%  { transform: translate(10px, -15px) scale(1.2); opacity: 1; }
+  100% { transform: translate(-5px, 8px)  scale(0.9); opacity: 0.5; }
+}

@@ -1,0 +1,164 @@
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Parallax Layers ─────────────────────────────────────── */
+.hero-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-layer--umap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-layer--leaves {
+  display: flex;
+  align-items: stretch;
+}
+
+.hero-leaf--left {
+  position: absolute;
+  left: -60px;
+  top: -30px;
+}
+
+.hero-leaf--right {
+  position: absolute;
+  right: -40px;
+  top: -20px;
+}
+
+.hero-leaf--br {
+  position: absolute;
+  right: 80px;
+  bottom: -60px;
+}
+
+.hero-layer--neurons {
+  display: flex;
+}
+
+.hero-neuron--left {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-neuron--right {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ── Particles ───────────────────────────────────────────── */
+.hero-layer--particles {
+  pointer-events: none;
+}
+
+.hero-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-leaf-light);
+  opacity: 0.4;
+  animation: cellFloat linear infinite;
+}
+
+/* ── Text Content ────────────────────────────────────────── */
+.hero-layer--text {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.hero-content {
+  text-align: center;
+  padding: 80px 20px 40px;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-tagline {
+  font-family: var(--font-code);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-data-cyan);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.2s forwards;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 700;
+  color: var(--color-synapse-gold);
+  letter-spacing: -1px;
+  text-shadow: 0 0 60px rgba(255,209,102,0.35);
+  margin-bottom: 24px;
+  line-height: 1.1;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: var(--color-text-primary);
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.6s forwards;
+}
+
+.hero-scroll-down {
+  display: inline-block;
+  color: var(--color-leaf-mid);
+  font-size: 32px;
+  text-decoration: none;
+  animation: bounce 2s infinite;
+  position: absolute;
+  bottom: -120px;
+  left: 50%;
+}
+
+.hero-chevron {
+  display: block;
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-leaf--left,
+  .hero-leaf--right,
+  .hero-leaf--br,
+  .hero-neuron--left,
+  .hero-neuron--right,
+  .hero-layer--umap {
+    opacity: 0;
+  }
+
+  .hero-name {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}

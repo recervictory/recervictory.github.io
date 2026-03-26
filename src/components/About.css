@@ -1,0 +1,99 @@
+.about-section {
+  background: linear-gradient(180deg, var(--color-bg-secondary) 0%, #0d1f0f 100%);
+  color: var(--color-text-primary);
+}
+
+.about-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.about-heading {
+  color: var(--color-synapse-gold);
+  margin-bottom: 48px;
+}
+
+/* ── Two-column layout ───────────────────────────────────── */
+.about-layout {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ── Left SVG column ─────────────────────────────────────── */
+.about-svg-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-svg-caption {
+  font-family: var(--font-code);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--color-data-cyan);
+  text-align: center;
+  margin-top: 12px;
+  opacity: 0.7;
+}
+
+/* ── Right bio column ────────────────────────────────────── */
+.about-field-guide {
+  border: 1px dotted rgba(82,183,136,0.35);
+  padding: 32px 36px;
+  position: relative;
+  background: rgba(19,42,19,0.4);
+  border-radius: 2px;
+}
+
+/* Leaf corner decorations */
+.about-field-guide::before,
+.about-field-guide::after {
+  content: '❧';
+  font-size: 24px;
+  color: var(--color-leaf-mid);
+  opacity: 0.5;
+  position: absolute;
+}
+.about-field-guide::before { top: 8px;  left: 12px; }
+.about-field-guide::after  { bottom: 8px; right: 12px; transform: rotate(180deg); }
+
+.about-bio-text {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--color-text-primary);
+  margin-bottom: 20px;
+}
+
+.about-contact-details {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(82,183,136,0.2);
+}
+
+.about-contact-details p {
+  font-family: var(--font-code);
+  font-size: 12px;
+  line-height: 2;
+  color: var(--color-text-primary);
+  opacity: 0.8;
+}
+
+.about-label {
+  color: var(--color-leaf-mid);
+  margin-right: 8px;
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-field-guide {
+    padding: 24px 20px;
+  }
+}

@@ -1,0 +1,81 @@
+.umap-section {
+  background: #060F06;
+  position: relative;
+  overflow: hidden;
+}
+
+.umap-watermark {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.umap-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Leaf-corner frame ───────────────────────────────────── */
+.umap-frame {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.umap-corner {
+  position: absolute;
+  font-size: 28px;
+  color: var(--color-leaf-mid);
+  opacity: 0.45;
+}
+.umap-corner--tl { top: -8px;  left: -8px;  }
+.umap-corner--tr { top: -8px;  right: -8px; transform: scaleX(-1); }
+.umap-corner--bl { bottom: -8px; left: -8px;  transform: scaleY(-1); }
+.umap-corner--br { bottom: -8px; right: -8px; transform: scale(-1); }
+
+/* ── Legend ──────────────────────────────────────────────── */
+.umap-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 28px;
+  margin-top: 24px;
+}
+
+.umap-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.umap-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.umap-legend__label {
+  font-family: var(--font-code);
+  font-size: 11px;
+  color: var(--color-text-primary);
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .umap-watermark { display: none; }
+
+  .umap-frame svg {
+    width: 100% !important;
+    height: auto !important;
+  }
+}

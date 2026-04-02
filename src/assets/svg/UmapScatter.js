@@ -66,10 +66,10 @@ const UmapScatter = ({ width = 600, height = 500, animate = false, opacity = 1 }
       <text x="300" y="490" fontFamily="'JetBrains Mono', monospace" fontSize="11" fill="#F1FAEE" opacity="0.5" textAnchor="middle">UMAP-1</text>
       <text x="16"  y="240" fontFamily="'JetBrains Mono', monospace" fontSize="11" fill="#F1FAEE" opacity="0.5" textAnchor="middle" transform="rotate(-90 16 240)">UMAP-2</text>
 
-      {clusters.map((cluster) => {
+      {clusters.map((cluster, clusterIdx) => {
         const dots = generateDots(cluster, 25, rand);
         return (
-          <g key={cluster.name}>
+          <g key={cluster.name} className="umap-cluster-group">
             {/* Contour ellipse */}
             <ellipse
               cx={cluster.cx}
@@ -81,7 +81,7 @@ const UmapScatter = ({ width = 600, height = 500, animate = false, opacity = 1 }
               strokeWidth="1"
               opacity="0.15"
             />
-            {/* Dots */}
+            {/* Dots with per-dot stagger delay offset by cluster index */}
             {dots.map((dot, i) => (
               <circle
                 key={i}
@@ -91,7 +91,7 @@ const UmapScatter = ({ width = 600, height = 500, animate = false, opacity = 1 }
                 fill={cluster.color}
                 opacity="0.85"
                 className={`svg-UmapScatter-dot${animate ? ' animated' : ''}`}
-                style={animate ? { animationDelay: `${i * 0.04}s` } : {}}
+                style={animate ? { animationDelay: `${clusterIdx * 0.25 + i * 0.04}s` } : {}}
               />
             ))}
             {/* Cluster label */}

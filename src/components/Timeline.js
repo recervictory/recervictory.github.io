@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { LeafNeuronHybrid, SynapseConnection } from '../assets/svg';
+import useReveal from '../hooks/useReveal';
 import './Timeline.css';
 
 const MILESTONES = [
@@ -11,38 +12,54 @@ const MILESTONES = [
   { year: '2025', title: 'Tumor Microenvironment Study Published', detail: 'Publication mapping TAM polarization and T-cell exhaustion states in the pediatric glioma immune microenvironment.' },
 ];
 
-const Timeline = () => {
-  const [stemVisible, setStemVisible] = useState(false);
-  const [expanded, setExpanded] = useState(null);
-  const stemRef = useRef(null);
+/* Small inline EEG waveform SVG */
+function EegWaveform() {
+  return (
+    <svg
+      className="timeline-eeg"
+      viewBox="0 0 50 14"
+      width="50"
+      height="14"
+      aria-hidden="true"
+    >
+      <polyline
+        points="0,7 10,7 13,2 16,12 19,7 50,7"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        opacity="0.55"
+      />
+    </svg>
+  );
+}
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStemVisible(true); },
-      { threshold: 0.2 }
-    );
-    const el = stemRef.current;
-    if (el) observer.observe(el);
-    return () => { if (el) observer.unobserve(el); };
-  }, []);
+const Timeline = () => {
+  const sectionRef = useRef(null);
+  const stemRef    = useRef(null);
+  const visible    = useReveal(sectionRef, 0.15);
+  const [expanded, setExpanded] = useState(null);
 
   return (
-    <section id="timeline" className="timeline-section theme-section">
+    <section
+      id="timeline"
+      ref={sectionRef}
+      className={`timeline-section theme-section${visible ? ' section-entered' : ''}`}
+    >
       <div className="timeline-inner">
         <span className="section-chapter">§ V · Botanical Log</span>
         <h2 className="section-title">Botanical Log</h2>
         <p className="section-subtitle">A living record of research milestones</p>
 
         <div className="timeline-track" ref={stemRef}>
-          {/* SVG vertical stem */}
+          {/* SVG vertical stem — 3s draw with pause effect */}
           <svg className="timeline-stem" viewBox="0 0 6 600" preserveAspectRatio="none">
             <line
               x1="3" y1="0" x2="3" y2="600"
               stroke="#52B788"
               strokeWidth="3"
               strokeDasharray="600"
-              strokeDashoffset={stemVisible ? 0 : 600}
-              style={{ transition: 'stroke-dashoffset 2s ease' }}
+              strokeDashoffset={visible ? 0 : 600}
+              style={{ transition: 'stroke-dashoffset 3s cubic-bezier(0.4, 0, 0.2, 1)' }}
             />
           </svg>
 
@@ -62,11 +79,17 @@ const Timeline = () => {
                 onClick={() => setExpanded(expanded === i ? null : i)}
                 aria-expanded={expanded === i}
               >
-                <span className="timeline-year">{m.year}</span>
+                <span className="timeline-year">
+                  {m.year}
+                  <EegWaveform />
+                </span>
                 <h3 className="timeline-title">{m.title}</h3>
-                {expanded === i && (
+
+                {/* Smooth accordion */}
+                <div className={`timeline-detail-wrapper${expanded === i ? ' open' : ''}`}>
                   <p className="timeline-detail">{m.detail}</p>
-                )}
+                </div>
+
                 <span className="timeline-toggle">{expanded === i ? '▲' : '▼'}</span>
               </button>
             </div>

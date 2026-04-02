@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { UmapScatter, BrainStemCell } from '../assets/svg';
+import useReveal from '../hooks/useReveal';
 import './UmapGallery.css';
 
 const LEGEND = [
@@ -12,21 +13,18 @@ const LEGEND = [
 ];
 
 const UmapGallery = () => {
-  const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.25 }
-    );
-    const el = sectionRef.current;
-    if (el) observer.observe(el);
-    return () => { if (el) observer.unobserve(el); };
-  }, []);
+  const visible    = useReveal(sectionRef, 0.2);
 
   return (
-    <section id="umap" className="umap-section theme-section" ref={sectionRef}>
+    <section
+      id="umap"
+      ref={sectionRef}
+      className={`umap-section theme-section${visible ? ' section-entered' : ''}`}
+    >
+      {/* Scanline sweep overlay */}
+      {visible && <div className="umap-scanline" aria-hidden="true" />}
+
       {/* Watermark */}
       <div className="umap-watermark">
         <BrainStemCell width={80} height={340} opacity={0.05} />

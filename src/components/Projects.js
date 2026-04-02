@@ -1,6 +1,7 @@
 import React from 'react';
 import { Parallax } from 'react-scroll-parallax';
 import { UmapScatter, NeuronGliomaStemCell } from '../assets/svg';
+import useReveal from '../hooks/useReveal';
 import './Projects.css';
 
 function useIsMobile() {
@@ -45,9 +46,16 @@ const PROJECTS = [
 ];
 
 const Projects = () => {
-  const isMobile = useIsMobile();
+  const isMobile   = useIsMobile();
+  const sectionRef = React.useRef(null);
+  const visible    = useReveal(sectionRef, 0.1);
+
   return (
-    <section id="projects" className="projects-section theme-section">
+    <section
+      id="projects"
+      ref={sectionRef}
+      className={`projects-section theme-section${visible ? ' section-entered' : ''}`}
+    >
       {/* Background parallax element */}
       <Parallax speed={-8} disabled={isMobile} className="projects-bg-neuron">
         <NeuronGliomaStemCell width={300} height={300} opacity={0.06} />

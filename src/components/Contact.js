@@ -1,10 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { NeuronOligodendrocyte } from '../assets/svg';
+import useReveal from '../hooks/useReveal';
 import './Contact.css';
 
 const FIREFLY_COUNT = 50;
 
 const Contact = () => {
+  const sectionRef = useRef(null);
+  const visible    = useReveal(sectionRef, 0.15);
+
   const fireflies = useMemo(() =>
     Array.from({ length: FIREFLY_COUNT }, (_, i) => ({
       id: i,
@@ -16,7 +20,11 @@ const Contact = () => {
   []);
 
   return (
-    <footer id="contact" className="contact-section">
+    <footer
+      id="contact"
+      ref={sectionRef}
+      className={`contact-section${visible ? ' section-entered' : ''}`}
+    >
       {/* Firefly particles */}
       <div className="contact-fireflies" aria-hidden="true">
         {fireflies.map(f => (

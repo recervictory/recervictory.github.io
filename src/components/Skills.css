@@ -4,6 +4,7 @@
   overflow: hidden;
 }
 
+/* Dot-grid texture */
 .skills-section::before {
   content: '';
   position: absolute;
@@ -13,6 +14,22 @@
     radial-gradient(circle, rgba(123,47,190,0.04) 1px, transparent 1px);
   background-size: 44px 44px, 70px 70px;
   pointer-events: none;
+  z-index: 0;
+}
+
+/* Ambient cyan bleed on reveal */
+.skills-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  z-index: 0;
+}
+.skills-section.section-entered::after {
+  opacity: 1;
 }
 
 .skills-inner {
@@ -32,7 +49,7 @@
 
 /* ── Skill Card — vintage specimen ──────────────────────── */
 .skill-card {
-  background: #1A2A1A;
+  background: rgba(10, 17, 32, 0.8);
   border: 1px solid rgba(82,183,136,0.2);
   border-radius: 3px;
   padding: 28px 20px 20px;

@@ -1,11 +1,29 @@
 .timeline-section {
   background: var(--color-bg-secondary);
   position: relative;
+  overflow: hidden;
+}
+
+/* Ambient green bleed on reveal */
+.timeline-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(82, 183, 136, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  z-index: 0;
+}
+.timeline-section.section-entered::before {
+  opacity: 1;
 }
 
 .timeline-inner {
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 /* ── Stem track ──────────────────────────────────────────── */
@@ -24,13 +42,27 @@
   pointer-events: none;
 }
 
-/* ── Timeline items ──────────────────────────────────────── */
+/* ── Timeline items — staggered entry ───────────────────── */
 .timeline-item {
   position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 48px;
   gap: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.timeline-section.section-entered .timeline-item:nth-child(1) { transition-delay: 0.1s; }
+.timeline-section.section-entered .timeline-item:nth-child(2) { transition-delay: 0.22s; }
+.timeline-section.section-entered .timeline-item:nth-child(3) { transition-delay: 0.34s; }
+.timeline-section.section-entered .timeline-item:nth-child(4) { transition-delay: 0.46s; }
+.timeline-section.section-entered .timeline-item:nth-child(5) { transition-delay: 0.58s; }
+.timeline-section.section-entered .timeline-item:nth-child(6) { transition-delay: 0.70s; }
+.timeline-section.section-entered .timeline-item {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .timeline-item--left {
@@ -53,7 +85,7 @@
 
 /* ── Timeline card ───────────────────────────────────────── */
 .timeline-card {
-  background: rgba(19,42,19,0.6);
+  background: rgba(10, 17, 32, 0.7);
   border: 1px solid rgba(82,183,136,0.25);
   border-radius: 3px;
   padding: 20px 24px;
@@ -69,7 +101,7 @@
 .timeline-item--right .timeline-card { margin-left: auto; }
 
 .timeline-card:hover {
-  background: rgba(19,42,19,0.85);
+  background: rgba(10, 17, 32, 0.9);
   box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(82,183,136,0.3);
 }
 
@@ -78,8 +110,16 @@
   font-size: 11px;
   color: var(--color-data-cyan);
   letter-spacing: 2px;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 6px;
+}
+
+/* EEG waveform decoration next to year */
+.timeline-eeg {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .timeline-title {
@@ -90,6 +130,16 @@
   line-height: 1.3;
 }
 
+/* Smooth accordion for expanded detail */
+.timeline-detail-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.timeline-detail-wrapper.open {
+  max-height: 200px;
+}
+
 .timeline-detail {
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -98,6 +148,7 @@
   opacity: 0.8;
   margin-top: 10px;
   margin-bottom: 0;
+  padding-bottom: 4px;
 }
 
 .timeline-toggle {

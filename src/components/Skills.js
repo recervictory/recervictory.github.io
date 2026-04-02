@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { NeuronMicroglia, NeuronAstrocyte, NeuronPyramidal, NeuronOligodendrocyte, NeuronGliomaStemCell } from '../assets/svg';
+import useReveal from '../hooks/useReveal';
 import './Skills.css';
 
 const SKILLS = [
@@ -69,20 +70,29 @@ const SkillCard = ({ name, level, Icon }) => {
   );
 };
 
-const Skills = () => (
-  <section id="skills" className="skills-section theme-section">
-    <div className="skills-inner">
-      <span className="section-chapter">§ II · Species Catalog</span>
-      <h2 className="section-title">Species Catalog</h2>
-      <p className="section-subtitle">Pinned computational specimens from field research</p>
+const Skills = () => {
+  const sectionRef = useRef(null);
+  const visible    = useReveal(sectionRef, 0.1);
 
-      <div className="skills-grid">
-        {SKILLS.map(({ name, level, icon: Icon }) => (
-          <SkillCard key={name} name={name} level={level} Icon={Icon} />
-        ))}
+  return (
+    <section
+      id="skills"
+      ref={sectionRef}
+      className={`skills-section theme-section${visible ? ' section-entered' : ''}`}
+    >
+      <div className="skills-inner">
+        <span className="section-chapter">§ II · Species Catalog</span>
+        <h2 className="section-title">Species Catalog</h2>
+        <p className="section-subtitle">Pinned computational specimens from field research</p>
+
+        <div className="skills-grid">
+          {SKILLS.map(({ name, level, icon: Icon }) => (
+            <SkillCard key={name} name={name} level={level} Icon={Icon} />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Skills;

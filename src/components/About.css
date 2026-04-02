@@ -1,16 +1,57 @@
 .about-section {
-  background: linear-gradient(180deg, var(--color-bg-secondary) 0%, #0d1f0f 100%);
+  background: linear-gradient(180deg, var(--color-bg-secondary) 0%, #0a1120 100%);
   color: var(--color-text-primary);
+  overflow: hidden;
+}
+
+/* Ambient violet bleed — activates on section reveal */
+.about-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(123, 47, 190, 0.07) 0%, transparent 65%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.about-section.section-entered::before {
+  opacity: 1;
+}
+
+/* Faint notebook ruled-line background */
+.about-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 27px,
+    rgba(241, 250, 238, 0.03) 28px
+  );
+  pointer-events: none;
 }
 
 .about-inner {
   max-width: 1080px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .about-heading {
   color: var(--color-synapse-gold);
   margin-bottom: 48px;
+}
+
+/* ── Chapter label animated reveal ─────────────────────── */
+.about-section .section-chapter {
+  display: inline-block;
+  transform-origin: left;
+  animation: none;
+}
+.about-section.section-entered .section-chapter {
+  animation: labelReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ── Two-column layout ───────────────────────────────────── */
@@ -28,6 +69,13 @@
   align-items: center;
 }
 
+/* Slow-rotation for FlowerCellType SVG */
+.about-svg-col > svg,
+.about-svg-col > * > svg {
+  animation: specimenSpin 30s linear infinite;
+  transform-origin: center;
+}
+
 .about-svg-caption {
   font-family: var(--font-code);
   font-size: 10px;
@@ -43,7 +91,7 @@
   border: 1px dotted rgba(82,183,136,0.35);
   padding: 32px 36px;
   position: relative;
-  background: rgba(19,42,19,0.4);
+  background: rgba(10,17,32,0.5);
   border-radius: 2px;
 }
 
@@ -65,6 +113,16 @@
   line-height: 1.85;
   color: var(--color-text-primary);
   margin-bottom: 20px;
+}
+
+/* Typewriter word tokens */
+.about-word {
+  display: inline;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.about-word.visible {
+  opacity: 1;
 }
 
 .about-contact-details {

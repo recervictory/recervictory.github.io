@@ -2,10 +2,20 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  background: linear-gradient(180deg, #0a1f12 0%, #050d08 100%);
+  background: linear-gradient(180deg, #050911 0%, #03060f 100%);
   display: flex;
   align-items: flex-start;
   justify-content: center;
+}
+
+/* ── Action-potential canvas ─────────────────────────────── */
+.hero-ap-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ── Parallax Layers ─────────────────────────────────────── */
@@ -22,14 +32,14 @@
   left: 0;
   right: 0;
   bottom: -60%;
-  background: linear-gradient(180deg, #0a1f12 0%, #050d08 100%);
+  background: linear-gradient(180deg, #050911 0%, #03060f 100%);
 }
 
 .hero-bg-gradient::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 85%, rgba(255, 209, 102, 0.08), transparent 60%);
+  background: radial-gradient(circle at 50% 85%, rgba(155, 77, 255, 0.06), transparent 60%);
 }
 
 /* Layer 2 — Brain outline */
@@ -37,22 +47,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
-/* Layer 3 — Neuron forest */
+/* Layer 3 — Neuron forest — staggered materialise */
+.hero-layer--neuron-forest {
+  z-index: 3;
+}
+
 .hero-forest-neuron {
   position: absolute;
+  animation: neuronMaterialise 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Layer 4 — Particles */
+/* Layer 4 — Axon-signal directional particles */
 .hero-layer--particles {
   pointer-events: none;
+  z-index: 4;
 }
 
-.hero-synapse-particle {
+.hero-axon-particle {
   position: absolute;
+  left: -10px;
   border-radius: 50%;
-  animation: cellFloatUp linear infinite;
+  animation: axonTravel linear infinite;
+  box-shadow: 0 0 6px 2px currentColor;
 }
 
 /* ── Centerpiece ─────────────────────────────────────────── */
@@ -65,7 +84,8 @@
   height: 500px;
   pointer-events: none;
   z-index: 5;
-  animation: hero-pulse 6s ease-in-out infinite;
+  mix-blend-mode: screen;
+  animation: specimenSpin 40s linear infinite;
 }
 
 .hero-centerpiece__astrocyte,
@@ -118,58 +138,80 @@
   z-index: 100;
 }
 
-#home .hero-tagline {
+/* Beat 1 — monospace file-header caption */
+.hero-tagline {
   font-family: var(--font-code);
   font-size: 10px;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--color-data-cyan);
   margin-bottom: 20px;
-  text-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+  text-shadow: 0 0 14px rgba(0, 229, 255, 0.5);
   opacity: 0;
-  animation: fadeInUp 1.2s ease 0.2s forwards;
+  animation: fadeInUp 1s ease 0.1s both;
 }
 
+/* Beat 2 — name with gold glow pulse */
 .hero-name {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 700;
   color: var(--color-synapse-gold);
   letter-spacing: -1px;
-  text-shadow: 0 0 30px rgba(255, 209, 102, 0.25);
+  text-shadow:
+    0 0 30px rgba(255, 209, 102, 0.35),
+    0 0 60px rgba(255, 209, 102, 0.15);
   margin-bottom: 24px;
   line-height: 1.1;
   opacity: 0;
-  animation: fadeInUp 1.2s ease 0.5s forwards;
+  animation: fadeInUp 1.2s ease 0.55s both, glowPulse 3s ease-in-out 1.8s infinite;
   z-index: 100;
 }
 
+/* Beat 3 — subtitle word stagger */
 .hero-subtitle {
   font-family: var(--font-body);
   font-style: italic;
   font-size: clamp(1rem, 2.5vw, 1.35rem);
   color: var(--color-text-primary);
-  max-width: 500px;
+  max-width: 540px;
   margin: 0 auto 40px;
   line-height: 1.7;
+  z-index: 100;
+}
+
+.hero-subtitle-word {
+  display: inline;
   opacity: 0;
-  animation: fadeInUp 1.2s ease 0.8s forwards;
-  z-index: 100;
+  animation: fadeInUp 0.5s ease both;
 }
 
-.hero-scroll-down {
-  display: inline-block;
-  color: var(--color-leaf-mid);
-  font-size: 24px;
+/* ── EEG scroll indicator ────────────────────────────────── */
+.hero-scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-data-cyan);
   text-decoration: none;
-  animation: bounce 2s infinite;
+  opacity: 0;
+  animation: fadeInUp 1s ease 1.8s both;
   position: absolute;
-  bottom: -160px;
+  bottom: -170px;
   left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  border-radius: 4px;
+  padding: 4px 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hero-chevron {
+.hero-scroll-indicator:hover {
+  border-color: rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+.hero-eeg-canvas {
   display: block;
 }
 
@@ -197,6 +239,8 @@
     width: 300px;
     height: 300px;
     bottom: -40px;
+    animation: none;
+    transform: translateX(-50%);
   }
 
   .hero-name {
@@ -205,5 +249,9 @@
 
   .hero-subtitle {
     font-size: 0.9rem;
+  }
+
+  .hero-ap-canvas {
+    opacity: 0.5;
   }
 }

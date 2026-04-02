@@ -1,5 +1,5 @@
 /* ============================================================
-   Global Keyframe Animations — Botanical Neuro-Atlas
+   Global Keyframe Animations — Cinematic Neuro-Atlas
    ============================================================ */
 
 /* Element drifts up 20px and back */
@@ -64,4 +64,75 @@
   0%   { transform: translate(0, 0)       scale(1);   opacity: 0.6; }
   50%  { transform: translate(10px, -15px) scale(1.2); opacity: 1; }
   100% { transform: translate(-5px, 8px)  scale(0.9); opacity: 0.5; }
+}
+
+/* ── Cinematic additions ──────────────────────────────────── */
+
+/* Scroll-triggered reveal fade (replaces simple opacity) */
+@keyframes revealFade {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Horizontal scanline sweep — simulates microscope scan */
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  5%   { opacity: 0.6; }
+  95%  { opacity: 0.6; }
+  100% { transform: translateY(100vh);  opacity: 0; }
+}
+
+/* Radial burst for neuron/synapse pop-in */
+@keyframes neuronBurst {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60%  { transform: scale(1.15) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg);  opacity: 1; }
+}
+
+/* Section ambient bleed fade-in */
+@keyframes section-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Staggered neuron forest materialise */
+@keyframes neuronMaterialise {
+  0%   { opacity: 0; transform: scale(0.6); }
+  70%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Axon particle travel — left to right arc */
+@keyframes axonTravel {
+  0%   { transform: translateX(0)   translateY(0)    scale(1);   opacity: 0.7; }
+  40%  { transform: translateX(30vw) translateY(-30px) scale(1.2); opacity: 1;   }
+  80%  { transform: translateX(70vw) translateY(10px)  scale(0.9); opacity: 0.6; }
+  100% { transform: translateX(105vw) translateY(0)   scale(0.5); opacity: 0;   }
+}
+
+/* Slow specimen rotation */
+@keyframes specimenSpin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* EEG flatline spike */
+@keyframes eegSpike {
+  0%   { d: path('M 0 15 L 20 15 L 25 15 L 30 15 L 80 15'); }
+  30%  { d: path('M 0 15 L 20 15 L 25 0  L 30 28 L 35 15 L 80 15'); }
+  100% { d: path('M 0 15 L 20 15 L 25 15 L 30 15 L 80 15'); }
+}
+
+/* Section chapter label scaleX reveal */
+@keyframes labelReveal {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
 }

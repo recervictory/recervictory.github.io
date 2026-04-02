@@ -1,17 +1,14 @@
 /* ============================================================
-   Theme: "Botanical Neuro-Atlas"
+   Theme: "Cinematic Neuro-Atlas"
    Design System – CSS Custom Properties
    ============================================================ */
 
-/* ── Google Fonts ────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap');
-
 /* ── Color Palette ───────────────────────────────────────── */
 :root {
-  /* Botanical Neuro-Atlas palette */
-  --color-bg-primary:       #0B1A0E;   /* deep jungle green */
-  --color-bg-secondary:     #132A13;   /* dark moss */
-  --color-leaf-dark:        #2D6A2D;   /* forest green */
+  /* Deep-space neuro palette */
+  --color-bg-primary:       #050911;   /* near-black indigo — SEM imaging dark */
+  --color-bg-secondary:     #0a1120;   /* deep navy */
+  --color-leaf-dark:        #2D6A2D;   /* forest green (kept for SVG compat) */
   --color-leaf-mid:         #52B788;   /* sage */
   --color-leaf-light:       #95D5B2;   /* mint highlight */
   --color-neural-violet:    #7B2FBE;   /* synapse/axon accent */
@@ -23,13 +20,18 @@
   --color-amber:            #FFD166;   /* TAM cluster */
   --color-mint-cluster:     #06D6A0;   /* astrocyte cluster */
 
+  /* Cinematic accent tokens */
+  --color-glow-violet:      #9B4DFF;   /* axon glow highlight */
+  --color-axon-blue:        #1A8FFF;   /* action potential blue */
+  --color-plasma-magenta:   #FF2D78;   /* UMAP/dramatic accent */
+
   /* Legacy aliases kept for backward compat */
   --color-midnight:    var(--color-bg-primary);
   --color-parchment:   var(--color-text-primary);
   --color-cyan:        var(--color-data-cyan);
   --color-gold:        var(--color-synapse-gold);
   --color-blood:       var(--color-tumor-red);
-  --color-ink:         #1a1208;
+  --color-ink:         #030608;
   --color-ghost:       rgba(255,255,255,0.08);
 
   /* ── Typography ──────────────────────────────────────────── */
@@ -43,7 +45,9 @@
   --card-radius:   4px;
 
   /* ── Transitions ────────────────────────────────────────── */
-  --transition-base: 0.35s ease;
+  --transition-base:        0.35s ease;
+  --section-transition-speed: 0.8s;
+  --cinematic-blur:         8px;
 }
 
 /* ── Global Resets & Base Styles ─────────────────────────── */
@@ -135,10 +139,23 @@ body {
 /* ── Scroll-Reveal Animation Base ────────────────────────── */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity var(--section-transition-speed) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--section-transition-speed) cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Whole-section reveal wrapper */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--section-transition-speed) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--section-transition-speed) cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-section.visible {
   opacity: 1;
   transform: translateY(0);
 }

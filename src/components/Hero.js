@@ -38,6 +38,12 @@ function ActionPotentialCanvas() {
 
     let t = 0;
 
+    /* ── Action-potential wave constants ── */
+    const AP_SPIKE_WIDTH    = 0.005; // Gaussian width of the spike envelope
+    const AP_SPIKE_HEIGHT   = 40;    // px amplitude of the spike
+    const AP_BASE_AMPLITUDE = 8;     // px amplitude of the background oscillation
+    const AP_TRAVEL_SPEED   = 0.5;   // fraction of trace speed used for spike travel
+
     function draw() {
       ctx.clearRect(0, 0, W, H);
 
@@ -57,9 +63,9 @@ function ActionPotentialCanvas() {
         for (let x = 0; x <= W; x += 2) {
           const phase = x / W * Math.PI * 6 - t * tr.speed * 300;
           // Action-potential shape: mostly flat, sharp spike
-          const spikeEnvelope = Math.exp(-Math.pow((x / W - ((t * tr.speed * 0.5) % 1)), 2) / 0.005);
-          const base  = Math.sin(phase) * 8;
-          const spike = spikeEnvelope * 40;
+          const spikeEnvelope = Math.exp(-Math.pow((x / W - ((t * tr.speed * AP_TRAVEL_SPEED) % 1)), 2) / AP_SPIKE_WIDTH);
+          const base  = Math.sin(phase) * AP_BASE_AMPLITUDE;
+          const spike = spikeEnvelope * AP_SPIKE_HEIGHT;
           const y = tr.y + base + spike;
 
           if (x === 0) ctx.moveTo(x, y);

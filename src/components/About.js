@@ -6,6 +6,8 @@ import './About.css';
 const BIO_TEXT_1 = 'Victor Banerjee is a PhD candidate at University Hospital Münster (UKM), specializing in pediatric brain tumor genomics and single-cell RNA sequencing. His work maps the cellular ecosystems of pediatric gliomas — decoding the stories written in tumor cells using NMF signature discovery, UMAP dimensionality reduction, and tumor microenvironment analysis.';
 const BIO_TEXT_2 = 'At the intersection of computational biology and clinical neuro-oncology, his research illuminates the hidden forest of cell states that define tumor aggression, therapy resistance, and immune evasion in pediatric high-grade gliomas.';
 
+const WORD_DELAY_S = 0.04; // seconds between each word appearing
+
 function TypewriterParagraph({ text, active, baseDelay = 0 }) {
   const words = text.split(' ');
   return (
@@ -14,7 +16,7 @@ function TypewriterParagraph({ text, active, baseDelay = 0 }) {
         <span
           key={i}
           className={`about-word${active ? ' visible' : ''}`}
-          style={{ transitionDelay: active ? `${baseDelay + i * 0.04}s` : '0s' }}
+          style={{ transitionDelay: active ? `${baseDelay + i * WORD_DELAY_S}s` : '0s' }}
         >
           {word}{' '}
         </span>

@@ -12,6 +12,8 @@ const NAV_LINKS = [
 
 const SECTION_IDS = ['about', 'skills', 'projects', 'umap', 'timeline', 'contact'];
 
+const ACTIVE_SECTION_THRESHOLD = 0.35; // fraction of section visible to count as active
+
 export default function Nav() {
   const [visible, setVisible] = useState(false);
   const [active, setActive]   = useState('');
@@ -37,7 +39,7 @@ export default function Nav() {
         ([entry]) => {
           if (entry.isIntersecting) setActive(id);
         },
-        { threshold: 0.35 }
+        { threshold: ACTIVE_SECTION_THRESHOLD }
       );
       obs.observe(el);
       observers.push(obs);
